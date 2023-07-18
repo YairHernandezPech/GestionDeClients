@@ -2,7 +2,7 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import "../../style.css";
 
-const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues }) => {
+const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessageApi }) => {
     // Función para manejar los cambios en los campos de cada fila
     const handleChange = (e, noteId) => {
       const { name, value } = e.target;
@@ -21,8 +21,11 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues }) => {
             method: 'DELETE'
         }
         fetch('http://localhost:3001/notes/delete/' + _id, requestInit)
-            .then(res => res.text())
-            .then(res => console.log(res))
+            .then(res => res.json())
+            .then(res => {
+              console.log(res);
+              setMessageApi('Se ha eliminado una nota');
+            })
         setListupdateNote(true)
         Swal.fire({ icon: 'error', title: 'Nota Eliminada' })
     }
@@ -43,7 +46,7 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues }) => {
       };
   
       fetch('http://localhost:3001/notes/update/' + _id, requestInit)
-        .then((res) => res.text())
+        .then((res) => res.json())
         .then((res) => console.log(res));
   
       setListupdateNote(true);

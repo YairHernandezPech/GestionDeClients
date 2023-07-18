@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
-const UserList = ({ users, setListupdate, clientValues, setClientValues, currentPage, setCurrentPage, totalPages }) => {
+const UserList = ({ users, setListupdate, clientValues, setClientValues, currentPage, setCurrentPage, totalPages, setMessageApi }) => {
   const [emailError, setEmailError] = useState('');
 
   // Función para manejar los cambios en los campos de cada fila
@@ -23,8 +23,11 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
       method: 'DELETE'
     };
     fetch('http://localhost:3001/clients/delete/' + _id, requestInit)
-      .then(res => res.text())
-      .then(res => console.log(res));
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        setMessageApi('Se ha eliminado un cliente');
+      });
     setListupdate(true);
     Swal.fire({ icon: 'error', title: 'Cliente Eliminado' });
   };
@@ -44,8 +47,11 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
     };
 
     fetch('http://localhost:3001/clients/update/' + _id, requestInit)
-      .then((res) => res.text())
-      .then((res) => console.log(res));
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        setMessageApi('Se ha actualizado un cliente');
+      });
 
     setListupdate(true);
     Swal.fire({ icon: 'success', title: 'Cliente Actualizado' });
@@ -174,10 +180,11 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
                     ))}
                   </tbody>
                 </table>
+                <div style={{marginTop:"60px"}}></div>
               </div>
             </div>
           </div>
-          <div className='row'>
+          <div className='row pagination'>
             <div className='col-12'>
               <nav>
                 <ul className='pagination justify-content-center'>

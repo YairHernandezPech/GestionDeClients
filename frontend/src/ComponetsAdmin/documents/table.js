@@ -1,7 +1,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 
-const Documentlist = ({ documents, setListupdateNote, noteValues, setNoteValues }) => {
+const Documentlist = ({ documents, setListupdateNote, setMessageApi  }) => {
 
   //-----------------------Eliminar---------------------
   const eliminarNote = _id => {
@@ -9,7 +9,11 @@ const Documentlist = ({ documents, setListupdateNote, noteValues, setNoteValues 
       method: 'DELETE'
     };
     fetch('http://localhost:3001/documents/delete/' + _id, requestInit)
-      .then(res => res.text())
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        setMessageApi('Se ha eliminado un documento');
+      })
       .then(res => {
         Swal.fire({ icon: 'error', title: 'Documento Eliminado' })
         setListupdateNote(true);

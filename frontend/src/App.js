@@ -26,7 +26,8 @@ function App() {
   const [clientValues, setClientValues] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-
+//Mensaje
+const [MessageApi, setMessageApi] = useState('');
   useEffect(() => {
     const getUsers = () => {
       fetch(`http://localhost:3001/clients?page=${currentPage}&limit=6`)
@@ -48,22 +49,22 @@ function App() {
           path="/"
           element={
             <Fragment>
-              <Navbar brand="Welcome Admin" searchTerm={searchTerm} setResults={setResults} setSearchTerm={setSearchTerm} results={results}></Navbar>
+              <Navbar brand="Welcome Admin" searchTerm={searchTerm} setResults={setResults} setSearchTerm={setSearchTerm} results={results} MessageApi={MessageApi}></Navbar>
               <div className='container'>
                 <div className='row'>
                   <div className='col-14'>
                     <br />
-                    <Form insertClient={insertClient} setInsertClient={setInsertClient}></Form>
+                    <Form insertClient={insertClient} setInsertClient={setInsertClient} setMessageApi={setMessageApi}></Form>
                     <br />
-                    <UserList users={users} setListupdate={setListupdate} clientValues={clientValues} setClientValues={setClientValues} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages}></UserList>
+                    <UserList users={users} setListupdate={setListupdate} clientValues={clientValues} setClientValues={setClientValues} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} setMessageApi={setMessageApi}></UserList>
                   </div>
                 </div>
               </div>
             </Fragment>
           }
         />
-        <Route path="/notes" element={<AppNotes />} />
-        <Route path="/documents" element={<AppDocuments />} />
+        <Route path="/notes" element={<AppNotes setMessageApi={setMessageApi}/>} />
+        <Route path="/documents" element={<AppDocuments setMessageApi={setMessageApi}/>} />
       </Routes>
     </Router>
   );

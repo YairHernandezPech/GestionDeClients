@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../../style.css";
 import { Link } from 'react-router-dom';
-import { Toast, ToastContainer, Button } from 'react-bootstrap';
+import { Toast, ToastContainer } from 'react-bootstrap';
 //sfc
-const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results }) => {
+const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results,MessageApi }) => {
 
     // // Aqui empieza para el Toast de mensaje
     const [showToast, setShowToast] = useState(false);
@@ -99,12 +99,12 @@ const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results }) => {
                 </div>
             </div>
             <div>
-                {/* <Button variant="primary" onClick={toggleToast} className='fa fa-bell position-relative ms-2 notify' style={{ marginRight: '3rem' }}>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        99+
-                    </span>
-                </Button> */}
-               <div className="position-relative ms-2 notify"><a variant="primary" onClick={toggleToast} target="_blank"><i className="fa fa-bell"></i></a></div> 
+                {MessageApi ?(
+                    <div className="position-relative ms-2 notify"><span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{fontSize:"12px"}}>1+</span><a variant="primary" onClick={toggleToast} target="_blank"><i className="fa fa-bell"></i></a></div> 
+                ):(
+                    <div className="position-relative ms-2 notify"><a variant="primary" onClick={toggleToast} target="_blank"><i className="fa fa-bell"></i></a></div> 
+                )}
+
                 <ToastContainer className="position-fixed bottom-0 end-0 p-3">
                     <Toast show={showToast} onClose={toggleToast}>
                         <Toast.Header>
@@ -112,7 +112,7 @@ const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results }) => {
                             <strong className="me-auto">AscoDeCodigo</strong>
                             <small>11 mins ago</small>
                         </Toast.Header>
-                        <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+                        <Toast.Body> {MessageApi} </Toast.Body>
                     </Toast>
                 </ToastContainer>
             </div>

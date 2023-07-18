@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "../../style.css";
 
-const Form = ({ insertClient, setInsertClient }) => {
+const Form = ({ insertClient, setInsertClient,setMessageApi }) => {
   const [emailError, setEmailError] = useState('');
 
   const cambio = e => {
@@ -39,8 +39,11 @@ const Form = ({ insertClient, setInsertClient }) => {
     };
 
     fetch('http://localhost:3001/clients/insert', requestInit)
-      .then(res => res.text())
-      .then(res => console.log(res));
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        setMessageApi('Se ha agregado un cliente');
+      });
 
     // Reiniciar el formulario
     setInsertClient({

@@ -26,7 +26,7 @@ const NavbarNotas = ({ brand, insertNote, setInsertNote }) => {
       body: JSON.stringify(insertNote)
     }
     fetch('http://localhost:3001/notes/insert', requestInit)
-      .then(res => res.text())
+      .then(res => res.json())
       .then(res => console.log(res))
 
     //Reiniciar la form

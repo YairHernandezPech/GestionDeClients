@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import NavbarDocuments from "./ComponetsAdmin/documents/navDocuments";
 import Documentlist from "./ComponetsAdmin/documents/table";
 
-const AppDocuments = () => {
+const AppDocuments = ({ setMessageApi }) => {
   const [documents, setDocuments] = useState([]);
   const [listupdateNote, setListupdateNote] = useState(false);
   const [noteValues, setNoteValues] = useState({});
@@ -28,7 +28,7 @@ const AppDocuments = () => {
         <div className='row'>
           <div className='col-14'>
             <br />
-            <Documentlist documents={documents} setListupdateNote={handleListUpdate} noteValues={noteValues} setNoteValues={setNoteValues} listupdateNote={listupdateNote} />
+            <Documentlist documents={documents} setListupdateNote={handleListUpdate} noteValues={noteValues} setNoteValues={setNoteValues} listupdateNote={listupdateNote} setMessageApi={setMessageApi}/>
           </div>
         </div>
       </div>
