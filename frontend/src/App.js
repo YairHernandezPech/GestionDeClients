@@ -7,7 +7,7 @@ import AppDocuments from "./AppDocuments";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-  //Clientes
+  // Clientes
   const [insertClient, setInsertClient] = useState({
     name: '',
     lastName: '',
@@ -22,19 +22,25 @@ function App() {
   const [listupdate, setListupdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
-  //Actualizar
+  // Actualizar
   const [clientValues, setClientValues] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const getUsers = () => {
-      fetch('http://localhost:3001/clients?page=1&limit=7')
+      fetch(`http://localhost:3001/clients?page=${currentPage}&limit=6`)
         .then(res => res.json())
-        .then(res => setUsers(res));
+        .then(res => {
+          console.log(res); // Verificar la respuesta de la API
+          setUsers(res); // Corregir esta línea
+          setTotalPages(res.totalPages);
+        });
     }
+  
     getUsers();
     setListupdate(false);
-  }, [listupdate]);
-
+  }, [currentPage, listupdate]);
   return (
     <Router>
       <Routes>
@@ -49,19 +55,18 @@ function App() {
                     <br />
                     <Form insertClient={insertClient} setInsertClient={setInsertClient}></Form>
                     <br />
-                    <UserList users={users} setListupdate={setListupdate} clientValues={clientValues} setClientValues={setClientValues}></UserList>
+                    <UserList users={users} setListupdate={setListupdate} clientValues={clientValues} setClientValues={setClientValues} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages}></UserList>
                   </div>
                 </div>
               </div>
             </Fragment>
           }
         />
-        <Route path="/notes" element={<AppNotes/>} />
-        <Route path="/documents" element={<AppDocuments/>} />
+        <Route path="/notes" element={<AppNotes />} />
+        <Route path="/documents" element={<AppDocuments />} />
       </Routes>
     </Router>
   );
 }
-
 
 export default App;
