@@ -47,14 +47,14 @@ const NavbarDocuments = ({ brand, setListupdateNote }) => {
 
   return (
     <header className='navbar' style={{ backgroundColor: '#014ba0' }}>
-      <label for="btn-nav" className="btn-nav"><i className="fas fa-bars"></i></label>
+      <label htmlFor="btn-nav" className="btn-nav"><i className="fas fa-bars"></i></label>
       <input type="checkbox" id="btn-nav" />
       <div className='container'>
         <a href='#!' className='navbar-brand titlenav' style={{ color: 'white' }}>{brand}</a>
         <button className='btn btn-outline-info' type="submit" data-bs-toggle="modal" data-bs-target="#ModalAñadir">Agregar</button>
       </div>
       {/* Aqui inicia el formulario */}
-      <div className='modal fade' id="ModalAñadir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className='modal fade' id="ModalAñadir" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
@@ -81,7 +81,7 @@ const NavbarDocuments = ({ brand, setListupdateNote }) => {
                   <br />
                   <br />
                   <div className='col-md-12'>
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="type" value={type} onChange={handleTypeChange}>
+                    <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="type" value={type} onChange={handleTypeChange}>
                       <option selected>Selecciona un tipo de arcchivo</option>
                       <option value="Pdf">Pdf</option>
                       <option value="Imagen">Imagen</option>
@@ -99,7 +99,7 @@ const NavbarDocuments = ({ brand, setListupdateNote }) => {
         </div>
       </div>
       {/* Aqui Termina el formulario */}
-      <nav className="nav">
+      <nav className="nav1">
         <ul className="navigation">
         <div className="contenedorinf">
             <div className="circle-image2">
@@ -112,15 +112,7 @@ const NavbarDocuments = ({ brand, setListupdateNote }) => {
               <i className="fa fa-instagram"></i>
             </div>
           </div>
-          <li><Link to="/"><div className="fa fa-user"></div> Clientes</Link></li>
-          <div className="contenedor">
-            <div className="circle-image">
-              <img src="https://i.postimg.cc/kGZJ199h/9aa37b0f-020f-44ec-9217-00c353c61b5d.jpg" alt="Imagen" />
-            </div>
-            <div className="text">
-              <p>AscoDeCodigo</p>
-            </div>
-          </div>
+          <li><Link to="/clients"><div className="fa fa-user"></div> Clientes</Link></li>
         </ul>
       </nav>
     </header>

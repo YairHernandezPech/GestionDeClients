@@ -66,7 +66,7 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessage
               <p className='p1'>{note.note}</p>
   
               {/* Modal para cada fila */}
-              <div className='modal fade' id={`ModalActualizar-${note._id}`} tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+              <div className='modal fade' id={`ModalActualizar-${note._id}`} tabIndex={-1} aria-labelledby='exampleModalLabel' aria-hidden='true'>
                 <div className='modal-dialog'>
                   <div className='modal-content'>
                     <div className='modal-header'>

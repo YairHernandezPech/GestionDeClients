@@ -41,7 +41,7 @@ const Form = ({ insertClient, setInsertClient,setMessageApi }) => {
     fetch('http://localhost:3001/clients/insert', requestInit)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        //console.log(res);
         setMessageApi('Se ha agregado un cliente');
       });
 
@@ -68,7 +68,7 @@ const Form = ({ insertClient, setInsertClient,setMessageApi }) => {
             <button type="button" className='btn btn-outline-success new' data-bs-toggle="modal" data-bs-target="#ModalAñadir">Añadir</button>
           </div>
           {/* Aquí inicia el formulario */}
-          <div className='modal fade' id="ModalAñadir" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className='modal fade' id="ModalAñadir" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className='modal-dialog'>
               <div className='modal-content'>
                 <div className='modal-header'>

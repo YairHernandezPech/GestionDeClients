@@ -40,7 +40,7 @@ const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results,MessageA
 
     return (
         <header className='navbar' style={{ backgroundColor: '#014ba0' }}>
-            <label for="btn-nav" className="btn-nav"><i className="fas fa-bars"></i></label>
+            <label htmlFor="btn-nav" className="btn-nav"><i className="fas fa-bars"></i></label>
             <input type="checkbox" id="btn-nav" />
             <div className='container'>
                 <a href='#!' className='navbar-brand titlenav' style={{ color: 'white' }}>{brand}</a>
@@ -49,7 +49,7 @@ const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results,MessageA
                     <button className='btn btn-outline-info' type="submit" data-bs-toggle="modal" data-bs-target="#ModalBuscar">Buscar</button>
                 </form>
             </div>
-            <div className='modal fade' id="ModalBuscar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div className='modal fade' id="ModalBuscar" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true" >
                 <div className='modal-dialog modal-dialog-centered'>
                     <div className='modal-content'>
                         <div className='modal-header'>
@@ -129,16 +129,12 @@ const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results,MessageA
                             <i className="fa fa-instagram"></i>
                         </div>
                     </div>
-                    <li><Link to="/"><div className="fa fa-user"></div> Clientes</Link></li>
+                    <li><Link to="/clients"><div className="fa fa-user"></div> Clientes</Link></li>
                     <li><Link to="/documents"><div className="fa fa-file"></div> Documentos</Link></li>
                     <div className="contenedor">
-                        <div className="circle-image">
-                            <img src="https://i.postimg.cc/kGZJ199h/9aa37b0f-020f-44ec-9217-00c353c61b5d.jpg" alt="Imagen" />
-                        </div>
-                        <div className="text">
-                            <p>AscoDeCodigo</p>
-                        </div>
-                    </div> 
+                    </div>
+                    <li><Link to="/"><div className="fa fa-power-off"></div> Sing out</Link></li>
+                    
                 </ul>
             </nav>
         </header>

@@ -30,6 +30,17 @@
   top: 0;
   width: 200px;
   top: 50px;
+  height: auto;
+  background: #014ba0;
+  transform: translateX(-100%);
+  transition: .4s ease;
+}
+.nav1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  top: 50px;
   height: calc(100vh - 50px);
   background: #014ba0;
   transform: translateX(-100%);
@@ -167,33 +178,8 @@
   object-fit: cover;
 }
 
-/*Aqui inicia el logo y texto del nav*/
 .contenedor {
-  display: flex;
-  align-items: center;
-  max-width: 600px;
-  margin: 0 auto;
   margin-top: 13rem;
-}
-
-.circle-image {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 5px;
-}
-
-.circle-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.text {
-  flex: 1;
-  color: white;
-  font-size: 15px;
 }
 
 /*Aqui inicia la imagen mas el nombre y los iconos*/

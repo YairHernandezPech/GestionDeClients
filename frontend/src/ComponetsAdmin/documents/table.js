@@ -11,7 +11,7 @@ const Documentlist = ({ documents, setListupdateNote, setMessageApi  }) => {
     fetch('http://localhost:3001/documents/delete/' + _id, requestInit)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        //console.log(res);
         setMessageApi('Se ha eliminado un documento');
       })
       .then(res => {

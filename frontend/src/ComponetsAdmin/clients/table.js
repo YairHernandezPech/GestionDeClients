@@ -25,7 +25,7 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
     fetch('http://localhost:3001/clients/delete/' + _id, requestInit)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        //console.log(res);
         setMessageApi('Se ha eliminado un cliente');
       });
     setListupdate(true);
@@ -49,7 +49,7 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
     fetch('http://localhost:3001/clients/update/' + _id, requestInit)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        //console.log(res);
         setMessageApi('Se ha actualizado un cliente');
       });
 
@@ -109,7 +109,7 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
                           )}
                         </td>
                         {/* Aqui inicia el formulario */}
-                        <div className='modal fade' id={`ModalActualizar-${user._id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className='modal fade' id={`ModalActualizar-${user._id}`} tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div className='modal-dialog'>
                             <div className='modal-content'>
                               <div className='modal-header'>
