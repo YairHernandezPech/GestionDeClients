@@ -15,7 +15,7 @@ const [MessageApi, setMessageApi] = useState('');
         />
         <Route path="/clients" element={<AppClients setMessageApi={setMessageApi} MessageApi={MessageApi}/>}/>
         <Route path="/notes" element={<AppNotes setMessageApi={setMessageApi}/>} />
-        <Route path="/documents" element={<AppDocuments setMessageApi={setMessageApi}/>} />
+        <Route path="/documents/:uuid" element={<AppDocuments setMessageApi={setMessageApi}/>} />
       </Routes>
     </Router>
     

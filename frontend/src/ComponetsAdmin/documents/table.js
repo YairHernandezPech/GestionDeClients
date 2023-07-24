@@ -1,17 +1,17 @@
 import React from 'react';
 import Swal from 'sweetalert2';
-
+import { useParams } from "react-router-dom";
 const Documentlist = ({ documents, setListupdateNote, setMessageApi  }) => {
-
+  const {uuid}= useParams();
   //-----------------------Eliminar---------------------
   const eliminarNote = _id => {
     const requestInit = {
       method: 'DELETE'
     };
-    fetch('http://localhost:3001/documents/delete/' + _id, requestInit)
+    fetch(`http://localhost:3001/documents/${uuid}/` + _id, requestInit)
       .then(res => res.json())
       .then(res => {
-        //console.log(res);
+        console.log(res);
         setMessageApi('Se ha eliminado un documento');
       })
       .then(res => {
@@ -39,7 +39,7 @@ const Documentlist = ({ documents, setListupdateNote, setMessageApi  }) => {
                   </thead>
                   <tbody>
                     {documents.map(document => (
-                      <tr key={document._id}>
+                      <tr key={document.key}>
                         <td>{document.name}</td>
                         <td>{document.status}</td>
                         <td>{document.type}</td>

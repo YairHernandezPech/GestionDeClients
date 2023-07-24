@@ -16,11 +16,11 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessage
     };
   
     //-----------------------Eliminar---------------------
-    const eliminarNote = _id => {
+    const eliminarNote = uuid => {
         const requestInit = {
             method: 'DELETE'
         }
-        fetch('http://localhost:3001/notes/delete/' + _id, requestInit)
+        fetch('http://localhost:3001/notes/' + uuid, requestInit)
             .then(res => res.json())
             .then(res => {
               console.log(res);
@@ -32,8 +32,8 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessage
 
   
     //-----------------------Actualizar---------------------
-    const actualizarNote = (_id) => {
-      const noteToUpdate = noteValues[_id];
+    const actualizarNote = (uuid) => {
+      const noteToUpdate = noteValues[uuid];
       if (!noteToUpdate || noteToUpdate.title === '' || noteToUpdate.note === '') {
         Swal.fire({ icon: 'warning', title: 'Favor de acompletar todos los campos' });
         return;
@@ -45,7 +45,7 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessage
         body: JSON.stringify(noteToUpdate),
       };
   
-      fetch('http://localhost:3001/notes/update/' + _id, requestInit)
+      fetch('http://localhost:3001/notes/' + uuid, requestInit)
         .then((res) => res.json())
         .then((res) => console.log(res));
   
@@ -57,16 +57,16 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessage
       <section className='Proyectos' id='Proyectos'>
         <div className='services-content'>
           {notes.map((note) => (
-            <div className='box' key={note._id}>
+            <div className='box' key={note.uuid}>
               <h3 className='h31'>
                 {note.title}
-                <button onClick={() => eliminarNote(note._id)} className='btn btn-outline-danger fa fa-trash'></button>
-                <button className='btn btn-outline-warning fa fa-pencil' data-bs-toggle='modal' data-bs-target={`#ModalActualizar-${note._id}`}></button>
+                <button onClick={() => eliminarNote(note.uuid)} className='btn btn-outline-danger fa fa-trash'></button>
+                <button className='btn btn-outline-warning fa fa-pencil' data-bs-toggle='modal' data-bs-target={`#ModalActualizar-${note.uuid}`}></button>
               </h3>
               <p className='p1'>{note.note}</p>
   
               {/* Modal para cada fila */}
-              <div className='modal fade' id={`ModalActualizar-${note._id}`} tabIndex={-1} aria-labelledby='exampleModalLabel' aria-hidden='true'>
+              <div className='modal fade' id={`ModalActualizar-${note.uuid}`} tabIndex={-1} aria-labelledby='exampleModalLabel' aria-hidden='true'>
                 <div className='modal-dialog'>
                   <div className='modal-content'>
                     <div className='modal-header'>
@@ -78,16 +78,16 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessage
                       <form className='row g-3'>
                         <div className='row'>
                           <div className='col-md-12'>
-                            <input name='title' onChange={(e) => handleChange(e, note._id)} type='text' id='title' className='form-control' placeholder='Título'/>
+                            <input name='title' onChange={(e) => handleChange(e, note.uuid)} type='text' id='title' className='form-control' placeholder='Título'/>
                           </div>
                           <br />
                           <br />
                           <div className='col-md-12'>
-                            <input name='note' onChange={(e) => handleChange(e, note._id)} type='text' id='note' className='form-control' placeholder='Nota'/>
+                            <input name='note' onChange={(e) => handleChange(e, note.uuid)} type='text' id='note' className='form-control' placeholder='Nota'/>
                           </div>
                           <div className='row justify-content-start text-center mt-5'>
                             <div className='col-12'>
-                              <button type='submit' className='btn btn-primary' onClick={() => actualizarNote(note._id)}>
+                              <button type='submit' className='btn btn-primary' onClick={() => actualizarNote(note.uuid)}>
                                 Actualizar
                               </button>
                             </div>

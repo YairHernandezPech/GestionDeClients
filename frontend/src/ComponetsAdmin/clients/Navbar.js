@@ -26,11 +26,11 @@ const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results,MessageA
             const response = await fetch('http://localhost:3001/clients?page=1&limit=10&valor=' + searchTerm);
             const data = await response.json();
 
-            if (data.length === 0) {
-                console.log('Usuario no encontrado');
+            if (data.data.length === 0) {
+                //console.log('Usuario no encontrado');
                 setResults([]);
             } else {
-                setResults(data);
+                setResults(data.data);
             }
         } catch (error) {
             console.log('Error:', error);
@@ -130,7 +130,7 @@ const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results,MessageA
                         </div>
                     </div>
                     <li><Link to="/clients"><div className="fa fa-user"></div> Clientes</Link></li>
-                    <li><Link to="/documents"><div className="fa fa-file"></div> Documentos</Link></li>
+                    {/* <li><Link to="/documents"><div className="fa fa-file"></div> Documentos</Link></li> */}
                     <div className="contenedor">
                     </div>
                     <li><Link to="/"><div className="fa fa-power-off"></div> Sing out</Link></li>

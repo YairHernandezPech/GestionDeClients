@@ -38,7 +38,7 @@ const Form = ({ insertClient, setInsertClient,setMessageApi }) => {
       body: JSON.stringify(insertClient)
     };
 
-    fetch('http://localhost:3001/clients/insert', requestInit)
+    fetch('http://localhost:3001/clients', requestInit)
       .then(res => res.json())
       .then(res => {
         //console.log(res);

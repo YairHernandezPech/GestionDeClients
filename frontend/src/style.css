@@ -30,22 +30,12 @@
   top: 0;
   width: 200px;
   top: 50px;
-  height: auto;
-  background: #014ba0;
-  transform: translateX(-100%);
-  transition: .4s ease;
-}
-.nav1 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 200px;
-  top: 50px;
   height: calc(100vh - 50px);
   background: #014ba0;
   transform: translateX(-100%);
   transition: .4s ease;
 }
+
 
 .navigation li {
   list-style: none;

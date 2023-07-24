@@ -25,7 +25,7 @@ const NavbarNotas = ({ brand, insertNote, setInsertNote }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(insertNote)
     }
-    fetch('http://localhost:3001/notes/insert', requestInit)
+    fetch('http://localhost:3001/notes', requestInit)
       .then(res => res.json())
       .then(res => console.log(res))
 
@@ -77,7 +77,7 @@ const NavbarNotas = ({ brand, insertNote, setInsertNote }) => {
         </div>
       </div>
       {/* Aqui Termina el formulario */}
-      <nav className="nav1">
+      <nav className="nav">
         <ul className="navigation">
           <div className="contenedorinf">
             <div className="circle-image2">
@@ -91,7 +91,7 @@ const NavbarNotas = ({ brand, insertNote, setInsertNote }) => {
             </div>
           </div>
           <li><Link to="/clients"><div className="fa fa-user"></div> Clientes</Link></li>
-          <li><Link to="/documents"><div className="fa fa-file"></div> Documentos</Link></li>
+          {/* <li><Link to="/documents"><div className="fa fa-file"></div> Documentos</Link></li> */}
         </ul>
       </nav>
     </header>

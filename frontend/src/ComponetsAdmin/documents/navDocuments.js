@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import "../../style.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 const NavbarDocuments = ({ brand, setListupdateNote }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
   const [type, setType] = useState('');
+  const {uuid}= useParams();
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -37,7 +39,7 @@ const NavbarDocuments = ({ brand, setListupdateNote }) => {
     formData.append('type', type);
 
     try {
-      const response = await axios.post('http://localhost:3001/documents/upload', formData);
+      const response = await axios.post(`http://localhost:3001/documents/${uuid}`, formData);
       console.log(response.data); // Respuesta de la API
       setListupdateNote(true); // Actualizar la lista después de subir el archivo exitosamente
     } catch (error) {
@@ -99,7 +101,7 @@ const NavbarDocuments = ({ brand, setListupdateNote }) => {
         </div>
       </div>
       {/* Aqui Termina el formulario */}
-      <nav className="nav1">
+      <nav className="nav">
         <ul className="navigation">
         <div className="contenedorinf">
             <div className="circle-image2">

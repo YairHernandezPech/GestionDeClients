@@ -17,7 +17,7 @@ const AppNotes = ({ setMessageApi }) => {
     const getNotes = () => {
       fetch('http://localhost:3001/notes')
         .then(res => res.json())
-        .then(res => setNotes(res));
+        .then(res => setNotes(res.data));
     }
     getNotes();
     setListupdateNote(false);
