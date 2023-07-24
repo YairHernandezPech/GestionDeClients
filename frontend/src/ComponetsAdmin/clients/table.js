@@ -109,7 +109,7 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
                         <td>
                           {user.customerType === "Candidato" && (
                             <div className='mb-3'>
-                              <Link to="/notes" className='btn btn-info fa fa-sticky-note-o'></Link>
+                              <Link to={`/notes/${user.uuid}`}><button className='btn btn-info fa fa-sticky-note-o'></button></Link>
                             </div>
                           )}
                         </td>

@@ -1,7 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import NavbarNotas from "./ComponetsAdmin/notas/navNotas";
 import Notasbody from "./ComponetsAdmin/notas/notasbody";
+import { useParams } from "react-router-dom";
+
 const AppNotes = ({ setMessageApi }) => {
+  const {uuidClient}= useParams();
   //Clientes
   const [insertNote, setInsertNote] = useState({
     title: '',
@@ -15,13 +18,13 @@ const AppNotes = ({ setMessageApi }) => {
 
   useEffect(() => {
     const getNotes = () => {
-      fetch('http://localhost:3001/notes')
+      fetch(`http://localhost:3001/notes/${uuidClient}`)
         .then(res => res.json())
         .then(res => setNotes(res.data));
     }
     getNotes();
     setListupdateNote(false);
-  }, [listupdateNote]);
+  }, [uuidClient,listupdateNote]);
 
   return (
     <Fragment>

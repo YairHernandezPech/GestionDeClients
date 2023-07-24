@@ -1,9 +1,10 @@
 import React from "react";
 import "../../style.css";
 import { Link } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 //sfc
 const NavbarNotas = ({ brand, insertNote, setInsertNote }) => {
-
+  const {uuidClient}= useParams();
 
   const cambio = e => {
     setInsertNote({
@@ -25,7 +26,7 @@ const NavbarNotas = ({ brand, insertNote, setInsertNote }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(insertNote)
     }
-    fetch('http://localhost:3001/notes', requestInit)
+    fetch(`http://localhost:3001/notes/${uuidClient}`, requestInit)
       .then(res => res.json())
       .then(res => console.log(res))
 

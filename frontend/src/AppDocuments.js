@@ -18,7 +18,7 @@ const AppDocuments = ({ setMessageApi }) => {
     };
 
     getDocuments();
-  }, [uuid],[listupdateNote]);
+  }, [uuid,listupdateNote]);
 
   const handleListUpdate = () => {
     setListupdateNote(prevState => !prevState);

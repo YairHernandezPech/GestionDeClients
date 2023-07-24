@@ -1,8 +1,10 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 import "../../style.css";
+import { useParams } from "react-router-dom";
 
 const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessageApi }) => {
+  const {uuidClient}= useParams();
     // Función para manejar los cambios en los campos de cada fila
     const handleChange = (e, noteId) => {
       const { name, value } = e.target;
@@ -20,7 +22,7 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessage
         const requestInit = {
             method: 'DELETE'
         }
-        fetch('http://localhost:3001/notes/' + uuid, requestInit)
+        fetch(`http://localhost:3001/notes/${uuidClient}/` + uuid, requestInit)
             .then(res => res.json())
             .then(res => {
               console.log(res);
@@ -45,7 +47,7 @@ const Notasbody = ({notes, setListupdateNote,noteValues,setNoteValues,setMessage
         body: JSON.stringify(noteToUpdate),
       };
   
-      fetch('http://localhost:3001/notes/' + uuid, requestInit)
+      fetch(`http://localhost:3001/notes/${uuidClient}/` + uuid, requestInit)
         .then((res) => res.json())
         .then((res) => console.log(res));
   
