@@ -3,37 +3,40 @@ import { Crud } from "../../shared/CRUD";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Document, Types } from "mongoose";
 import { DocumentsDto } from "../DTO/createDTO";
-import { Documents, DocumentsDocument } from "../model/Documents";
-import { S3 } from 'aws-sdk';
+import { ClientsDocument,Client } from "../../clients/model/Clients";
 
 
 @Injectable()
-export class DocumentsRepository implements Crud<DocumentsDocument, DocumentsDto> {
-  constructor(@InjectModel(Documents.name) private readonly documentModel: Model<DocumentsDocument>) { }
+export class DocumentsRepository implements Crud<ClientsDocument, DocumentsDto> {
+  constructor(@InjectModel(Client.name) private readonly clientModel: Model<ClientsDocument>) { }
 
-  async create(s3: S3, uploadParams, documentDto: DocumentsDto): Promise<any> {
-    let newData = await s3.upload(uploadParams).promise();
-    documentDto.url= newData.Location
-    let data = await this.documentModel.create(documentDto);
-    return data;
+  async create(documentDto: DocumentsDto, uuid): Promise<any> {
+    let data = await this.clientModel.findOneAndUpdate(
+      {uuid:uuid},
+      {$push:{documents:documentDto}},
+      {new:true}
+    );
+    return data.documents;
   }
 
-  async get(): Promise<any> {
-    let data = await this.documentModel.find();
-    return data;
+  get() {
+    throw new Error('Method not implemented.');
   }
 
-  async delete(s3: S3, params, key): Promise<any> {
-    let data = await s3.deleteObject(params).promise();
-    let newData = await this.documentModel.deleteOne({ key: key })
-    return { data, newData }
+  async getByUuid(uuid: string): Promise<any> {
+    let data = await this.clientModel.findOne({uuid}).select('documents');
+    return data.documents;
+  }
+  update(_id: string, data: DocumentsDto): Promise<ClientsDocument> {
+    throw new Error('Method not implemented.');
   }
 
-  getByUuid() {
-    throw new Error("Method not implemented.");
-  }
-  async update(_id: string, documentDto: DocumentsDto): Promise<any> {
-    throw new Error("Method not implemented.");
+    async delete(uuidClient, uuidDocument:string ): Promise<any> {
+    let data = await this.clientModel.updateOne(
+      { uuid: uuidClient },
+      {$pull:{documents:{key: uuidDocument}}}
+      )
+    return data
   }
 
 }

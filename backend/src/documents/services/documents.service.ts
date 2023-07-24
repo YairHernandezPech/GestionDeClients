@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { MulterFile } from 'multer';
 import { DocumentsRepository } from "../repository/documents.repository";
 import { S3 } from 'aws-sdk';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { AwsConfig } from '../aws.confing';
 import { DocumentsDto } from "../DTO/createDTO";
 
@@ -17,41 +17,49 @@ export class DocumentsService {
     });
   }
 
-  async create(file: MulterFile, obj: DocumentsDto): Promise<any> {
+  async create(file: MulterFile, documentsDto: DocumentsDto, uuid): Promise<any> {
     try {
       const uploadParams = {
         Bucket: this.awsConfig.bucketName,
-        Key: `${uuid()}-${file.originalname}`,
+        Key: `${uuidv4()}-${file.originalname}`,
         Body: file.buffer,
       };
-      const keyImg = uploadParams.Key
-      obj.key = keyImg;
-      const newDocument = await this.documentsRepository.create(this.s3, uploadParams, obj)
-      return newDocument
+
+      let newDocument = await this.s3.upload(uploadParams).promise();//Aqui se guarda el documento en AWS
+      documentsDto.key = newDocument.Key;//Aqui obtengo la el key del documento y lo guardo en el dto
+      documentsDto.url= newDocument.Location//Aqui obtengo la url del documento y lo guardo en el dto
+      
+      const data = await this.documentsRepository.create(documentsDto,uuid)
+      return data
     }
     catch (err) {
       console.log(err)
+      throw new Error('Failed to Created');
     }
   }
 
-  async findAll(): Promise<any[]> {
+  async findAll(uuid: string): Promise<any[]> {
     try {
-      const document = await this.documentsRepository.get()
+      const document = await this.documentsRepository.getByUuid(uuid)
       return document;
 
     } catch (error) {
       console.log(error)
+      throw new Error('Failed to Get');
     }
   }
-  async delete(key: string): Promise<any> {
+
+  async delete(uuidClient:string, uuidDocument: string): Promise<any> {
     try {
       const params = {
         Bucket: this.awsConfig.bucketName,
-        Key: key,
+        Key: uuidDocument,
       };
-      await this.documentsRepository.delete(this.s3, params, key);
+      let data = await this.s3.deleteObject(params).promise();
+      await this.documentsRepository.delete(uuidClient,uuidDocument);
     } catch (err) {
       console.log(err);
+      throw new Error('Failed to Delete');
     }
   }
 

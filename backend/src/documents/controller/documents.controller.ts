@@ -9,43 +9,45 @@ export class DocumentsController {
 
     constructor(private readonly filesService: DocumentsService) { }
 
-    @Post('upload')
+    @Post('/:uuid')
     @UseInterceptors(FileInterceptor('file'))
-    async uploadFile(@UploadedFile() file: MulterFile,@Body() createDto: DocumentsDto, @Res() res): Promise<string> {
+    async uploadFile(@UploadedFile() file: MulterFile,@Body() createDto: DocumentsDto,@Param('uuid') uuid: string, @Res() res): Promise<string> {
         try {
-            let data = await this.filesService.create(file,createDto);
-            return res.status(HttpStatus.OK).json({
-                menssage: ' Archivo subido exitosamente ',
+            let data = await this.filesService.create(file,createDto,uuid);
+            return res.status(201).json({
+                menssage: ' Document added Successfully ',
                 data
             })
         } catch (error) {
-            res.status(500).send({ msg: "Ha habido un problema" })
             console.log(error)
+            res.status(500).send({ menssage: "There is a problem" })
         }
     }
 
-    @Get('/')
-    async getAllFiles(@Res() res): Promise<string[]> {
+    @Get('/:uuid')
+    async getAllFiles(@Res() res, @Param('uuid') uuid: string): Promise<string[]> {
         try {
-            const data = await this.filesService.findAll();
-            return res.json(data);
+            const data = await this.filesService.findAll(uuid);
+            return res.status(201).json({
+                data      
+            })
         } catch (error) {
             console.log(error);
-            res.status(500).send({ msg: "Ha habido un problema" });
+            res.status(500).send({ menssage: "There is a problem" });
         }
     }
 
 
-    @Delete('/delete/:key')
-    async deleteFile(@Param('key') key: string, @Res() res): Promise<string> {
+    @Delete('/:uuidClient/:uuidDocument')
+    async deleteFile(@Param('uuidClient') uuidClient: string, @Param('uuidDocument') uuidDocument: string, @Res() res): Promise<string> {
         try {
-            await this.filesService.delete(key);
-            return res.status(HttpStatus.OK).json({
-                menssage: 'Archivo eliminado exitosamente',
+            await this.filesService.delete(uuidClient,uuidDocument);
+            return res.status(201).json({
+                menssage: 'Note successfully removed',
             });
         } catch (error) {
-            res.status(500).send({ msg: 'Ha habido un problema' });
             console.log(error);
+            res.status(500).send({ menssage: "There is a problem" });
         }
     }
 

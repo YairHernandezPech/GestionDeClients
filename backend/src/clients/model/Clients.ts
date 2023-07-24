@@ -1,14 +1,14 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose'; 
 import * as dayjs from 'dayjs';
-import { v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { Documents,DocumentsSchema } from "../../documents/model/Documents";
 
 export type ClientsDocument = Client & Document; 
 
 @Schema() 
 export class Client {
-  @Prop({type: String, default: v4()}) 
+  @Prop({type: String, default: () => uuidv4(), index: true}) 
   uuid: string;
 
   @Prop({type: String, required: true})

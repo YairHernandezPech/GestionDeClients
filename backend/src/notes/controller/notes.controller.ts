@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res, HttpStatus, Get, Delete, Param, Put, NotFoundException } from '@nestjs/common';
+import { Body, Controller, Post, Res, Get, Delete, Param, Put } from '@nestjs/common';
 import { NotesDto } from "../DTO/createDTO";
 import { NotesService } from "../services/notes.service";
 
@@ -7,17 +7,17 @@ export class NotesController {
 
     constructor(private readonly notesServices: NotesService) {}
 
-    @Post('insert')
+    @Post('/')
     async notes(@Res() res, @Body() createDto: NotesDto) {
         try {
             let data = await this.notesServices.create(createDto)
-            return res.status(HttpStatus.OK).json({
+            return res.status(201).json({
                 menssage: 'Nota Agregada',
                 data
             })
         } catch (error) {
-            res.status(500).send({ msg: "Ha habido un problema" })
             console.log(error)
+            res.status(500).send({ menssage: "There is a problem" })
         }
     }
 
@@ -25,37 +25,39 @@ export class NotesController {
     async getNote(@Res() res) {
         try {
             let data = await this.notesServices.findAll();
-            return res.json(data);
+            return res.status(201).json({
+                data      
+            })
         } catch (error) {
-            res.status(500).send({ msg: "Ha habido un problema" })
             console.log(error)
+            res.status(500).send({ menssage: "There is a problem" })
         }
     }
 
-    @Put('/update/:_id')
-    async updatenote(@Res() res, @Body() createDto: NotesDto, @Param('_id') _id) {
+    @Put('/:uuid')
+    async updatenote(@Res() res, @Body() createDto: NotesDto, @Param('uuid') uuid) {
         try {
-            let data = await this.notesServices.update(_id,createDto)
-            return res.status(HttpStatus.OK).json({
-                menssage: "Nota actualizada correctamente",
+            let data = await this.notesServices.update(uuid,createDto)
+            return res.status(201).json({
+                menssage: "Note updated successfully",
                 data
             })
         } catch (error) {
-            res.status(500).send({ msg: "Ha habido un problema" })
             console.log(error)
+            res.status(500).send({ menssage: "There is a problem" })
         }
     }
 
-    @Delete('/delete/:_id')
-    async delete(@Res() res, @Param('_id') _id) {
+    @Delete('/:uuid')
+    async delete(@Res() res, @Param('uuid') uuid) {
         try {
-            let data = await this.notesServices.delete(_id);
-            return res.status(HttpStatus.OK).json({
-                menssage: "Nota eliminada correctamente"
+            await this.notesServices.delete(uuid);
+            return res.status(201).json({
+                menssage: "Note successfully removed"
             })
         } catch (error) {
-            res.status(500).send({ msg: "Ha habido un problema" })
             console.log(error)
+            res.status(500).send({ menssage: "There is a problem" })
         }
     }
 

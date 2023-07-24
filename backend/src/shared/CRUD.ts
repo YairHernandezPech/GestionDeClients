@@ -1,9 +1,9 @@
 import { Document, Model } from 'mongoose';
 
 export interface Crud<T , DTO> {
-    create(s3,uploadParams, data: DTO): Promise<T>
-    get(skip,limit)
-    getByUuid(skip,limit,item)
+    create(uuid,data: DTO): Promise<T>
+    get(skip,limit,item)
+    getByUuid(uuid:string)
     update(_id:string, data:DTO):Promise<T>
-    delete(s3,params, _id:string)
+    delete(_id:string,uuid)
 }

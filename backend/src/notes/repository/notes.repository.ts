@@ -21,12 +21,12 @@ export class NotesRepository implements Crud<NotesDocument,NotesDto>{
     getByUuid() {
         throw new Error("Method not implemented.");
     }
-    async update(_id:string, noteDto:NotesDto): Promise<any> {
-        let data = await this.noteModel.findByIdAndUpdate(_id, noteDto, { new: true });
+    async update(uuid:string, noteDto:NotesDto): Promise<any> {
+        let data = await this.noteModel.findOneAndUpdate({uuid}, noteDto, { new: true });
         return data;
     }
-    async delete(_id:string): Promise<any> {
-        let data = await this.noteModel.findByIdAndDelete(_id);
+    async delete(uuid:string): Promise<any> {
+        let data = await this.noteModel.findOneAndDelete({uuid});
         return data
     }
 }
