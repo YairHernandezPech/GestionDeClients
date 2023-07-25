@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { MulterFile } from 'multer';
 import { DocumentsRepository } from "../repository/documents.repository";
 import { S3 } from 'aws-sdk';
 import { v4 as uuidv4 } from "uuid";
@@ -17,7 +16,7 @@ export class DocumentsService {
     });
   }
 
-  async create(file: MulterFile, documentsDto: DocumentsDto, uuid): Promise<any> {
+  async create(file: Express.Multer.File, documentsDto: DocumentsDto, uuid): Promise<any> {
     try {
       const uploadParams = {
         Bucket: this.awsConfig.bucketName,

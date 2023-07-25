@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AppClients from "./AppClients";
 import AppNotes from "./AppNotas";
 import AppDocuments from "./AppDocuments";
+import AppUsers from "./AppUsers";
 function App() {
 //Mensaje
 const [MessageApi, setMessageApi] = useState('');
@@ -16,6 +17,7 @@ const [MessageApi, setMessageApi] = useState('');
         <Route path="/clients" element={<AppClients setMessageApi={setMessageApi} MessageApi={MessageApi}/>}/>
         <Route path="/notes/:uuidClient" element={<AppNotes setMessageApi={setMessageApi}/>} />
         <Route path="/documents/:uuid" element={<AppDocuments setMessageApi={setMessageApi}/>} />
+        <Route path="/users" element={<AppUsers setMessageApi={setMessageApi}/>} />
       </Routes>
     </Router>
     

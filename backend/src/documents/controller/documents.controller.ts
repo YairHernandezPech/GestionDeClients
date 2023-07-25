@@ -1,7 +1,6 @@
 import { Controller, Post, UseInterceptors, UploadedFile, Res, HttpStatus, Get, Body, Delete, Param } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { DocumentsService } from '../services/documents.service';
-import { MulterFile } from 'multer';
 import { DocumentsDto } from "../DTO/createDTO";
 
 @Controller('documents')
@@ -11,7 +10,7 @@ export class DocumentsController {
 
     @Post('/:uuid')
     @UseInterceptors(FileInterceptor('file'))
-    async uploadFile(@UploadedFile() file: MulterFile,@Body() createDto: DocumentsDto,@Param('uuid') uuid: string, @Res() res): Promise<string> {
+    async uploadFile(@UploadedFile() file: Express.Multer.File,@Body() createDto: DocumentsDto,@Param('uuid') uuid: string, @Res() res): Promise<string> {
         try {
             let data = await this.filesService.create(file,createDto,uuid);
             return res.status(201).json({
