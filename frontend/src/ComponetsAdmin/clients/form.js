@@ -113,8 +113,8 @@ const Form = ({ insertClient, setInsertClient,setMessageApi }) => {
                       <div className='mb-3'>
                         <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name='customerType' onChange={cambio} id='customerType'>
                           <option value="" selected>Selecciona un tipo de cliente</option>
-                          <option value="Candidato">Candidato</option>
-                          <option value="Estudiante">Estudiante</option>
+                          <option value="Candidate">Candidato</option>
+                          <option value="Student">Estudiante</option>
                         </select>
                       </div>
                       <div className='row justify-content-start text-center mt-5'>

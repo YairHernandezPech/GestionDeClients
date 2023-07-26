@@ -18,20 +18,21 @@ const AppDocuments = ({ setMessageApi }) => {
     };
 
     getDocuments();
+    setListupdateNote(false);
   }, [uuid,listupdateNote]);
 
-  const handleListUpdate = () => {
-    setListupdateNote(prevState => !prevState);
-  };
+  // const handleListUpdate = () => {
+  //   setListupdateNote(prevState => !prevState);
+  // };
 
   return (
     <Fragment>
-      <NavbarDocuments brand="Documentos" setListupdateNote={handleListUpdate} />
+      <NavbarDocuments brand="Documentos"/>
       <div className='container'>
         <div className='row'>
           <div className='col-14'>
             <br />
-            <Documentlist documents={documents} setListupdateNote={handleListUpdate} noteValues={noteValues} setNoteValues={setNoteValues} listupdateNote={listupdateNote} setMessageApi={setMessageApi}/>
+            <Documentlist documents={documents} setListupdateNote={setListupdateNote} noteValues={noteValues} setNoteValues={setNoteValues} setMessageApi={setMessageApi}/>
           </div>
         </div>
       </div>

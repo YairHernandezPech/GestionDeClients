@@ -92,7 +92,6 @@ const NavbarNotas = ({ brand, insertNote, setInsertNote }) => {
             </div>
           </div>
           <li><Link to="/clients"><div className="fa fa-user"></div> Clientes</Link></li>
-          {/* <li><Link to="/documents"><div className="fa fa-file"></div> Documentos</Link></li> */}
         </ul>
       </nav>
     </header>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
-const NavbarDocuments = ({ brand, setListupdateNote }) => {
+const NavbarDocuments = ({ brand }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
@@ -41,11 +41,12 @@ const NavbarDocuments = ({ brand, setListupdateNote }) => {
     try {
       const response = await axios.post(`http://localhost:3001/documents/${uuid}`, formData);
       console.log(response.data); // Respuesta de la API
-      setListupdateNote(true); // Actualizar la lista después de subir el archivo exitosamente
+   // Actualizar la lista después de subir el archivo exitosamente
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   return (
     <header className='navbar' style={{ backgroundColor: '#014ba0' }}>

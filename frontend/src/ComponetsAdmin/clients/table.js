@@ -107,7 +107,7 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
                           </div>
                         </td>
                         <td>
-                          {user.customerType === "Candidato" && (
+                          {user.customerType === "Candidate" && (
                             <div className='mb-3'>
                               <Link to={`/notes/${user.uuid}`}><button className='btn btn-info fa fa-sticky-note-o'></button></Link>
                             </div>
@@ -165,8 +165,8 @@ const UserList = ({ users, setListupdate, clientValues, setClientValues, current
                                     <div className='mb-3'>
                                       <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name='customerType' onChange={(e) => handleChange(e, user.uuid)} id='customerType'>
                                         <option value="" selected>Selecciona un tipo de cliente</option>
-                                        <option value="Candidato">Candidato</option>
-                                        <option value="Estudiante">Estudiante</option>
+                                        <option value="Candidate">Candidato</option>
+                                        <option value="Student">Estudiante</option>
                                       </select>
                                     </div>
                                     <div className='row justify-content-start text-center mt-5'>

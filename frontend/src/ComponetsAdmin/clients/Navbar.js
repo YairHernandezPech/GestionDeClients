@@ -23,7 +23,7 @@ const Navbar = ({ brand, searchTerm, setResults, setSearchTerm, results,MessageA
         }
 
         try {
-            const response = await fetch('http://localhost:3001/clients?page=1&limit=10&valor=' + searchTerm);
+            const response = await fetch('http://localhost:3001/clients?page=1&limit=10&value=' + searchTerm);
             const data = await response.json();
 
             if (data.data.length === 0) {
