@@ -3,6 +3,7 @@ import { Document } from 'mongoose';
 import * as dayjs from 'dayjs';
 import { v4 as uuidv4 } from "uuid";
 import { Documents,DocumentsSchema } from "../../documents/model/Documents";
+import { Note,NoteSchema } from "../../notes/model/Notes";
 
 export type ClientsDocument = Client & Document; 
 
@@ -37,6 +38,9 @@ export class Client {
 
   @Prop({ type: [DocumentsSchema] })
   documents: Documents[];
+
+  @Prop({ type: [NoteSchema] })
+  notes: Note[];
 
 }
 

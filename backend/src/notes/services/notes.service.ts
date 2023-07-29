@@ -8,9 +8,9 @@ export class NotesService {
     constructor(private readonly notesRepository: NotesRepository) { }
 
 
-    async create(obj: NotesDto): Promise<any> {
+    async create(documentsDto: NotesDto,uuidClient): Promise<any> {
         try {
-            const newNote = await this.notesRepository.create(obj)
+            const newNote = await this.notesRepository.create(documentsDto,uuidClient)
             return newNote
         }
         catch (err) {
@@ -19,19 +19,19 @@ export class NotesService {
         }
 
     }
-    async findAll(): Promise<any[]> {
+    async findAll(uuidClient: string): Promise<any[]> {
         try {
-            const note = await this.notesRepository.get()
-            return note
+            const lsnote = await this.notesRepository.getByUuid(uuidClient)
+            return lsnote
 
         } catch (error) {
             console.log(error)
             throw new Error('Failed to Get');
         }
     }
-    async update(uuid, obj: NotesDto): Promise<any> {
+    async update(uuidClient:string,uuidNote:string, documentsDto: NotesDto): Promise<any> {
         try {
-            const updateNote = await this.notesRepository.update(uuid, obj)
+            const updateNote = await this.notesRepository.update(uuidClient,uuidNote, documentsDto)
             return updateNote;
 
         } catch (error) {
@@ -39,9 +39,9 @@ export class NotesService {
             throw new Error('Failed to Update');
         }
     }
-    async delete(uuid): Promise<any> {
+    async delete(uuidClient:string,uuidNote:string): Promise<any> {
         try {
-            const note = await this.notesRepository.delete(uuid)
+            const note = await this.notesRepository.delete(uuidClient,uuidNote)
             return note;
         } catch (error) {
             console.log(error)

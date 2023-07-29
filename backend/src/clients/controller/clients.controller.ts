@@ -29,9 +29,9 @@ export class ClientsController {
     }
 
     @Get('/')
-    async getClient(@Res() res,@Query('page', ValidationPipe) page?: number, @Query('limit', ValidationPipe) limit?: number, @Query('valor', ValidationPipe) valor?: string,) {
+    async getClient(@Res() res,@Query('page', ValidationPipe) page?: number, @Query('limit', ValidationPipe) limit?: number, @Query('value', ValidationPipe) value?: string,) {
         try {
-            let data = await this.clientsServices.findAll(page,limit,valor);
+            let data = await this.clientsServices.findAll(page,limit,value);
             return res.status(201).json({
                 data      
             })

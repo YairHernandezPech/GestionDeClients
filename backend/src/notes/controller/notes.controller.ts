@@ -7,10 +7,10 @@ export class NotesController {
 
     constructor(private readonly notesServices: NotesService) {}
 
-    @Post('/')
-    async notes(@Res() res, @Body() createDto: NotesDto) {
+    @Post('/:uuidClient')
+    async notes(@Res() res, @Body() createDto: NotesDto, @Param('uuidClient') uuidClient: string) {
         try {
-            let data = await this.notesServices.create(createDto)
+            let data = await this.notesServices.create(createDto,uuidClient)
             return res.status(201).json({
                 menssage: 'Nota Agregada',
                 data
@@ -21,10 +21,10 @@ export class NotesController {
         }
     }
 
-    @Get('/')
-    async getNote(@Res() res) {
+    @Get('/:uuidClient')
+    async getNote(@Res() res,@Param('uuidClient') uuidClient: string) {
         try {
-            let data = await this.notesServices.findAll();
+            let data = await this.notesServices.findAll(uuidClient);
             return res.status(201).json({
                 data      
             })
@@ -34,10 +34,10 @@ export class NotesController {
         }
     }
 
-    @Put('/:uuid')
-    async updatenote(@Res() res, @Body() createDto: NotesDto, @Param('uuid') uuid) {
+    @Put('/:uuidClient/:uuidNote')
+    async updatenote(@Res() res, @Body() createDto: NotesDto, @Param('uuidClient') uuidClient: string,@Param('uuidNote') uuidNote: string) {
         try {
-            let data = await this.notesServices.update(uuid,createDto)
+            let data = await this.notesServices.update(uuidClient,uuidNote,createDto)
             return res.status(201).json({
                 menssage: "Note updated successfully",
                 data
@@ -48,10 +48,10 @@ export class NotesController {
         }
     }
 
-    @Delete('/:uuid')
-    async delete(@Res() res, @Param('uuid') uuid) {
+    @Delete('/:uuidClient/:uuidNote')
+    async delete(@Res() res, @Param('uuidClient') uuidClient: string,@Param('uuidNote') uuidNote: string) {
         try {
-            await this.notesServices.delete(uuid);
+            await this.notesServices.delete(uuidClient,uuidNote);
             return res.status(201).json({
                 menssage: "Note successfully removed"
             })

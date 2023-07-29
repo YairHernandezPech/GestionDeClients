@@ -1,8 +1,8 @@
 import { IsString, IsNumber, IsNotEmpty, IsEmail, IsEnum } from 'class-validator';
 
 export enum CustomerType {
-  Estudiante = 'Estudiante',
-  Candidato = 'Candidato',
+  Student = 'Student',
+  Candidate = 'Candidate',
 }
 
 export class ClientsDto {
@@ -18,9 +18,9 @@ export class ClientsDto {
   @IsNotEmpty()
   readonly age: number
   @IsNotEmpty()
-  @IsEmail({}, { message: 'El correo electrónico no es válido.' })
+  @IsEmail({}, { message: 'The email is invalid.' })
   readonly email: string
-  @IsEnum(CustomerType,{message: 'customerType no válido. Los valores aceptados son Estudiante o Candidato',})
+  @IsEnum(CustomerType,{message: 'customerType not valid. Accepted values are Student or Candidate',})
   @IsNotEmpty()
   readonly customerType: CustomerType;
 

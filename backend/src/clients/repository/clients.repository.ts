@@ -16,7 +16,7 @@ export class ClientsRepository implements Crud<ClientsDocument, ClientsDto>{
         return data;
     }
     async get(skip,limit,item): Promise<any[]> {
-        let data = await this.clientModel.find(item).skip(skip).limit(limit);
+        let data = await this.clientModel.find(item).skip(skip).limit(limit).sort({ name: 1, createdAt: -1 });
         return data;
     }
     getByUuid() {

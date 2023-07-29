@@ -9,11 +9,11 @@ export class DocumentsController {
 
     constructor(private readonly filesService: DocumentsService) { }
 
-    @Post('/:uuid')
+    @Post('/:uuidClient')
     @UseInterceptors(FileInterceptor('file'))
-    async uploadFile(@UploadedFile() file: MulterFile,@Body() createDto: DocumentsDto,@Param('uuid') uuid: string, @Res() res): Promise<string> {
+    async uploadFile(@UploadedFile() file: MulterFile,@Body() createDto: DocumentsDto,@Param('uuidClient') uuidClient: string, @Res() res): Promise<string> {
         try {
-            let data = await this.filesService.create(file,createDto,uuid);
+            let data = await this.filesService.create(file,createDto,uuidClient);
             return res.status(201).json({
                 menssage: ' Document added Successfully ',
                 data
@@ -24,10 +24,10 @@ export class DocumentsController {
         }
     }
 
-    @Get('/:uuid')
-    async getAllFiles(@Res() res, @Param('uuid') uuid: string): Promise<string[]> {
+    @Get('/:uuidClient')
+    async getAllFiles(@Res() res, @Param('uuidClient') uuidClient: string): Promise<string[]> {
         try {
-            const data = await this.filesService.findAll(uuid);
+            const data = await this.filesService.findAll(uuidClient);
             return res.status(201).json({
                 data      
             })

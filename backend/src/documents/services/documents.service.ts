@@ -17,7 +17,7 @@ export class DocumentsService {
     });
   }
 
-  async create(file: MulterFile, documentsDto: DocumentsDto, uuid): Promise<any> {
+  async create(file: MulterFile, documentsDto: DocumentsDto, uuidClient): Promise<any> {
     try {
       const uploadParams = {
         Bucket: this.awsConfig.bucketName,
@@ -29,7 +29,7 @@ export class DocumentsService {
       documentsDto.key = newDocument.Key;//Aqui obtengo la el key del documento y lo guardo en el dto
       documentsDto.url= newDocument.Location//Aqui obtengo la url del documento y lo guardo en el dto
       
-      const data = await this.documentsRepository.create(documentsDto,uuid)
+      const data = await this.documentsRepository.create(documentsDto,uuidClient)
       return data
     }
     catch (err) {
@@ -38,10 +38,10 @@ export class DocumentsService {
     }
   }
 
-  async findAll(uuid: string): Promise<any[]> {
+  async findAll(uuidClient: string): Promise<any[]> {
     try {
-      const document = await this.documentsRepository.getByUuid(uuid)
-      return document;
+      const lsdocument = await this.documentsRepository.getByUuid(uuidClient)
+      return lsdocument;
 
     } catch (error) {
       console.log(error)
@@ -55,7 +55,7 @@ export class DocumentsService {
         Bucket: this.awsConfig.bucketName,
         Key: uuidDocument,
       };
-      let data = await this.s3.deleteObject(params).promise();
+      await this.s3.deleteObject(params).promise();
       await this.documentsRepository.delete(uuidClient,uuidDocument);
     } catch (err) {
       console.log(err);

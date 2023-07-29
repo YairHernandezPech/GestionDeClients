@@ -10,9 +10,9 @@ import { ClientsDocument,Client } from "../../clients/model/Clients";
 export class DocumentsRepository implements Crud<ClientsDocument, DocumentsDto> {
   constructor(@InjectModel(Client.name) private readonly clientModel: Model<ClientsDocument>) { }
 
-  async create(documentDto: DocumentsDto, uuid): Promise<any> {
+  async create(documentDto: DocumentsDto, uuidClient): Promise<any> {
     let data = await this.clientModel.findOneAndUpdate(
-      {uuid:uuid},
+      {uuid:uuidClient},
       {$push:{documents:documentDto}},
       {new:true}
     );
@@ -23,8 +23,8 @@ export class DocumentsRepository implements Crud<ClientsDocument, DocumentsDto> 
     throw new Error('Method not implemented.');
   }
 
-  async getByUuid(uuid: string): Promise<any> {
-    let data = await this.clientModel.findOne({uuid}).select('documents');
+  async getByUuid(uuidClient: string): Promise<any[]> {
+    let data = await this.clientModel.findOne({uuid:uuidClient}).select('documents');
     return data.documents;
   }
   update(_id: string, data: DocumentsDto): Promise<ClientsDocument> {
